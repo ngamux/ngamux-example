@@ -22,7 +22,7 @@ func routeMiddleware(next ngamux.HandlerFunc) ngamux.HandlerFunc {
 }
 
 func main() {
-	mux := ngamux.NewNgamux(ngamux.Config{
+	mux := ngamux.New(ngamux.Config{
 		RemoveTrailingSlash: true,
 	})
 	mux.Use(globalMiddleware)

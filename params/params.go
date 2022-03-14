@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	mux := ngamux.NewNgamux()
+	mux := ngamux.New()
 	mux.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
 		fmt.Fprintln(rw, "GET /")
 		return nil
