@@ -11,8 +11,7 @@ func main() {
 	mux := ngamux.New()
 
 	mux.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
-		fmt.Fprintln(rw, "GET /")
-		return nil
+		return ngamux.String(rw, "GET /")
 	})
 
 	mux.Get("/users", func(rw http.ResponseWriter, r *http.Request) error {
