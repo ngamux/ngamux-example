@@ -16,7 +16,7 @@ func main() {
 
 	mux.Post("/", func(rw http.ResponseWriter, r *http.Request) error {
 		in := map[string]string{}
-		err := ngamux.GetBody(r, &in)
+		err := ngamux.GetJSON(r, &in)
 		if err != nil {
 			ngamux.JSONWithStatus(rw, http.StatusBadRequest, err.Error())
 		}
