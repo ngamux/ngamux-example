@@ -7,14 +7,14 @@ import (
 	"github.com/ngamux/ngamux"
 )
 
-func globalMiddleware(next ngamux.HandlerFunc) ngamux.HandlerFunc {
+func globalMiddleware(next ngamux.Handler) ngamux.Handler {
 	return func(rw http.ResponseWriter, r *http.Request) error {
 		fmt.Println("hello from global middleware")
 		return next(rw, r)
 	}
 }
 
-func routeMiddleware(next ngamux.HandlerFunc) ngamux.HandlerFunc {
+func routeMiddleware(next ngamux.Handler) ngamux.Handler {
 	return func(rw http.ResponseWriter, r *http.Request) error {
 		fmt.Println("hello from route middleware")
 		return next(rw, r)
@@ -22,9 +22,7 @@ func routeMiddleware(next ngamux.HandlerFunc) ngamux.HandlerFunc {
 }
 
 func main() {
-	mux := ngamux.New(ngamux.Config{
-		RemoveTrailingSlash: true,
-	})
+	mux := ngamux.New()
 	mux.Use(globalMiddleware)
 
 	mux.Get("/", routeMiddleware(func(rw http.ResponseWriter, r *http.Request) error {
