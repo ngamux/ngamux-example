@@ -10,19 +10,16 @@ import (
 func main() {
 	mux := ngamux.New()
 	mux.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
-		fmt.Fprintln(rw, "GET /")
-		return nil
+		return ngamux.String(rw, "GET /")
 	})
 
 	users := mux.Group("/users")
 	users.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
-		fmt.Fprintln(rw, "GET /users")
-		return nil
+		return ngamux.String(rw, "GET /users")
 	})
 
 	users.Get("/:id", func(rw http.ResponseWriter, r *http.Request) error {
-		fmt.Fprintf(rw, "GET /users/:id with id = %s", ngamux.GetParam(r, "id"))
-		return nil
+		return ngamux.String(rw, fmt.Sprintf("GET /users/:id with id = %s", ngamux.GetParam(r, "id")))
 	})
 
 	users.Get("/:id/:slug", func(rw http.ResponseWriter, r *http.Request) error {
