@@ -27,13 +27,17 @@ func main() {
 
 	mux.Get("/", routeMiddleware(func(rw http.ResponseWriter, r *http.Request) error {
 		fmt.Println("hello / handler")
-		return ngamux.String(rw, "hello from / handler")
+		return ngamux.Res(rw).String("GET /")
 	}))
 
 	mux.Get("/users", ngamux.WithMiddlewares(routeMiddleware)(func(rw http.ResponseWriter, r *http.Request) error {
 		fmt.Println("hello from /users handler")
-		return ngamux.String(rw, "hello from /users handler")
+		return ngamux.Res(rw).String("GET /users")
 	}))
+
+	mux.With(routeMiddleware).Get("/products", func(rw http.ResponseWriter, r *http.Request) error {
+		return ngamux.Res(rw).String("GET /products")
+	})
 
 	http.ListenAndServe(":8080", mux)
 }
