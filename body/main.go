@@ -16,7 +16,7 @@ func main() {
 		res := ngamux.Res(rw)
 
 		in := map[string]string{}
-		err := ngamux.GetJSON(r, &in)
+		err := ngamux.Req(r).JSON(&in)
 		if err != nil {
 			res.Status(http.StatusBadGateway).JSON(err.Error())
 		}

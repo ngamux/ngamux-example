@@ -19,13 +19,14 @@ func main() {
 	})
 
 	users.Get("/:id", func(rw http.ResponseWriter, r *http.Request) error {
-		return ngamux.Res(rw).String(fmt.Sprintf("GET /users/:id with id = %s", ngamux.GetParam(r, "id")))
+		return ngamux.Res(rw).String(fmt.Sprintf("GET /users/:id with id = %s", ngamux.Req(r).Params("id")))
 	})
 
 	users.Get("/:id/:slug", func(rw http.ResponseWriter, r *http.Request) error {
+		req := ngamux.Req(r)
 		return ngamux.Res(rw).JSON(map[string]string{
-			"id":   ngamux.GetParam(r, "id"),
-			"slug": ngamux.GetParam(r, "slug"),
+			"id":   req.Params("id"),
+			"slug": req.Params("slug"),
 		})
 	})
 
