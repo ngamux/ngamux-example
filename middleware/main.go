@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ngamux/middleware/ping"
 	"github.com/ngamux/ngamux"
 )
 
@@ -23,6 +24,7 @@ func routeMiddleware(next ngamux.Handler) ngamux.Handler {
 
 func main() {
 	mux := ngamux.New()
+	mux.Use(ping.New())
 	mux.Use(globalMiddleware)
 
 	mux.Get("/", routeMiddleware(func(rw http.ResponseWriter, r *http.Request) error {
