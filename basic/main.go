@@ -12,6 +12,7 @@ func main() {
 
 	mux.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
 		return ngamux.Res(rw).
+			Status(http.StatusOK).
 			String("GET /")
 	})
 
@@ -21,7 +22,8 @@ func main() {
 	})
 
 	mux.Get("/products", func(rw http.ResponseWriter, r *http.Request) error {
-		return ngamux.Res(rw).
+		c := ngamux.NewCtx(rw, r)
+		return c.Res.
 			Status(201).
 			String("GET /products")
 	})
