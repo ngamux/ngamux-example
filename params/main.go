@@ -23,10 +23,10 @@ func main() {
 	})
 
 	users.Get("/:id/:slug", func(rw http.ResponseWriter, r *http.Request) error {
-		req := ngamux.Req(r)
-		return ngamux.Res(rw).JSON(map[string]string{
-			"id":   req.Params("id"),
-			"slug": req.Params("slug"),
+		c := ngamux.NewCtx(rw, r)
+		return c.Res.JSON(map[string]string{
+			"id":   c.Req.Params("id"),
+			"slug": c.Req.Params("slug"),
 		})
 	})
 
