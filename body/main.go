@@ -13,14 +13,14 @@ func main() {
 	})
 
 	mux.Post("/", func(rw http.ResponseWriter, r *http.Request) error {
-		res := ngamux.Res(rw)
+		c := ngamux.NewCtx(rw, r)
 
 		in := map[string]string{}
-		err := ngamux.Req(r).JSON(&in)
+		err := c.Req.JSON(&in)
 		if err != nil {
-			res.Status(http.StatusBadGateway).JSON(err.Error())
+			c.Res.Status(http.StatusBadGateway).JSON(err.Error())
 		}
-		return ngamux.Res(rw).JSON(in)
+		return c.Res.JSON(in)
 	})
 
 	http.ListenAndServe(":8080", mux)
