@@ -9,7 +9,7 @@ import (
 func main() {
 	mux := ngamux.New()
 	mux.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
-		return ngamux.Res(rw).String("GET /")
+		return ngamux.Res(rw).Text("GET /")
 	})
 
 	mux.Post("/", func(rw http.ResponseWriter, r *http.Request) error {
@@ -18,9 +18,9 @@ func main() {
 		in := map[string]string{}
 		err := c.Req.JSON(&in)
 		if err != nil {
-			c.Res.Status(http.StatusBadGateway).JSON(err.Error())
+			c.Res.Status(http.StatusBadGateway).Json(err.Error())
 		}
-		return c.Res.JSON(in)
+		return c.Res.Json(in)
 	})
 
 	http.ListenAndServe(":8080", mux)

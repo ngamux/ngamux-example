@@ -13,7 +13,7 @@ func main() {
 	mux.Get("/", func(rw http.ResponseWriter, r *http.Request) error {
 		return ngamux.Res(rw).
 			Status(http.StatusOK).
-			String("GET /")
+			Text("GET /")
 	})
 
 	mux.Get("/users", func(rw http.ResponseWriter, r *http.Request) error {
@@ -25,7 +25,7 @@ func main() {
 		c := ngamux.NewCtx(rw, r)
 		return c.Res.
 			Status(201).
-			String("GET /products")
+			Text("GET /products")
 	})
 
 	http.ListenAndServe(":8080", mux)
