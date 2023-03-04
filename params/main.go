@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ngamux/ctx"
 	"github.com/ngamux/ngamux"
 )
 
@@ -23,10 +24,10 @@ func main() {
 	})
 
 	users.Get("/:id/:slug", func(rw http.ResponseWriter, r *http.Request) error {
-		c := ngamux.NewCtx(rw, r)
-		return c.Res.Json(map[string]string{
-			"id":   c.Req.Params("id"),
-			"slug": c.Req.Params("slug"),
+		c := ctx.New(rw, r)
+		return c.Res().Json(map[string]string{
+			"id":   c.Req().Params("id"),
+			"slug": c.Req().Params("slug"),
 		})
 	})
 

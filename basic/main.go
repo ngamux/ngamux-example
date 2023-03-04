@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ngamux/ctx"
 	"github.com/ngamux/ngamux"
 )
 
@@ -22,8 +23,8 @@ func main() {
 	})
 
 	mux.Get("/products", func(rw http.ResponseWriter, r *http.Request) error {
-		c := ngamux.NewCtx(rw, r)
-		return c.Res.
+		c := ctx.New(rw, r)
+		return c.Res().
 			Status(201).
 			Text("GET /products")
 	})
